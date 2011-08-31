@@ -1,0 +1,5 @@
+*~
+obj/
+*.depend
+*.layout
+notes.txt
