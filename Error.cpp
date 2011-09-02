@@ -29,6 +29,7 @@ void err_log(const gchar *type,const gchar *error)
     strcat(s,error);
     strcat(s,"\n");
     fputs(s,f);
+    free(s);
     fclose(f);
 }
 

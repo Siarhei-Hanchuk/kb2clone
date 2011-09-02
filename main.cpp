@@ -20,5 +20,6 @@ int main (int argc, char *argv[])
     init_map();
 
     gui_init(argc,argv);
+    cache_clear();
     return 0;
 }

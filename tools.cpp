@@ -79,5 +79,6 @@ void tool_armedit(gchar *s)
             std::cout<<i<<": "<<a[i].name<<" "<<int(a[i].defence)<<" "<<a[i].damage<<" "<<int(a[i].step)<<" "<<int(a[i].fly)<<" "<<bool(a[i].shoot)<<" "<<a[i].count<<" "<<a[i].cost<<'\n';
         }
     }
+    delete fn;
 }
 

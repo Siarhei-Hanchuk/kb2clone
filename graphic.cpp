@@ -4,9 +4,6 @@
 #include "charstr.h"
 #include "procc.h"
 
-//Tplayer pl;
-//Tworld world;
-
 void pl_nave_get()
 {
     for(gint16 a=pl.X-1;a<pl.X+1;a++){
@@ -435,6 +432,36 @@ void gui_refresh()
     gui_freeA(A);
 }
 
+/*Tmenu gui_menu_city_wtk_set()
+{
+
+}*/
+
+void gui_menu_city_wrk_show(gint8 key)
+{
+    Tmenu m;
+    m.p[0]=text_get_strid("sid_city_menu_wrk_p0");
+    m.p[1]=text_get_strid("sid_city_menu_wrk_p1");
+    m.p[2]=text_get_strid("sid_city_menu_wrk_p2");
+    m.p[3]=text_get_strid("sid_city_menu_wrk_p3");
+    m.p[4]=text_get_strid("sid_city_menu_wrk_p4");
+    m.p[5]=NULL;
+    gui_menu_show(m);
+    cairo_t *cr=gdk_cairo_create(drawarea->window);
+    cairo_set_source_rgb (cr, 255, 255, 200);
+    cairo_set_font_size(cr, 19);
+        cairo_move_to(cr,230,410);
+        cairo_show_text(cr,itoa(world.city[tmpv_city].wraft));
+        cairo_move_to(cr,230,430);
+        cairo_show_text(cr,itoa(world.city[tmpv_city].wforest));
+        cairo_move_to(cr,230,450);
+        cairo_show_text(cr,itoa(world.city[tmpv_city].wland));
+        cairo_move_to(cr,230,470);
+        cairo_show_text(cr,itoa(world.city[tmpv_city].wstone));
+    cairo_destroy(cr);
+
+}
+
 void gui_menu_city_proc(gint8 key)
 {
     if(key==key_esc){
@@ -443,8 +470,8 @@ void gui_menu_city_proc(gint8 key)
         return;
     }
     if(key==key_6){
-        //gui_menu_city_wtk_show();
-
+        gui_menu_city_wrk_show(key);
+        gui_keylock_event=e_city_wrk;
 
     }
     if(key==key_5){
@@ -469,6 +496,7 @@ void gui_menu_city_proc(gint8 key)
             Tmenu m=gui_menu_city_set(tmpv_city);
             gui_menu_show(m);
             world.country[world.naveC].map[world.naveX][world.naveY].obj=0;
+            return;
         }
         gui_refresh();
         return;
@@ -650,8 +678,6 @@ void gui_byarmy_proc(gint8 key)
     }
     if(key==key_esc){
             gui_keylock_event=0;
-            //cout<<key
-
             gui_printgame(lastA);
             return;
     }
@@ -785,6 +811,10 @@ void gui_pressing_key(GtkWidget *buuton, GdkEventKey *event, gpointer func_data)
             gui_byarmy_proc(key);
             return;
         }
+        if(gui_keylock_event==e_city_wrk){
+            gui_menu_city_wrk_show(key);
+            return;
+        }
         if(gui_keylock_event==o_city){
             gui_menu_city_proc(key);
             return;
@@ -845,10 +875,11 @@ void cache_images(cairo_surface_t **&arr)
 {
     int maxid=120;
     arr=new cairo_surface_t*[maxid];
-    gchar *s=new char[maxid];
+    gchar *s;
     for(int i=0;i<maxid;i++){
         s=gui_getimgpath(i);
         arr[i]=cairo_image_surface_create_from_png(s);
+        delete[] s;
     }
 }
 

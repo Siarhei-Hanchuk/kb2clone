@@ -1,7 +1,5 @@
 #include "header.h"
 
-//extern Tworld world;
-
 void gw_all_base(Tmap &map)
 {
     //Заполнение всей карты водой
@@ -25,13 +23,24 @@ void gw_all_base(Tmap &map)
     }
 }
 
+void gw_c0_def()
+{
+    for(int i=0;i<5;i++){
+        world.city[i].wforest=rand()%4;
+        world.city[i].wraft=rand()%4;
+        world.city[i].wstone=rand()%4;
+        world.city[i].wland=rand()%4;
+    }
+}
+
 void gw_all_cities(Tmap &map)
-{//Установка 5 городов в любую страну
-    //gint16 r=0;
-    gint16 v=0;
+{
+    map[6][5].obj=o_city;
+    map[6][5].addid=0;
+    gint16 v=1;
     gint8 x;
     gint8 y;
-      while(v<5){
+      while(v<4){
             x=rand()%MAXC;
             y=rand()%MAXC;
             if(((map[x+1][y].land==l_water)||(map[x-1][y].land==l_water)||(map[x][y+1].land==l_water)||(map[x][y-1].land==l_water))&&

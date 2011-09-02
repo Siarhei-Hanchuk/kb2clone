@@ -43,9 +43,10 @@
 		<Unit filename="charstr.h" />
 		<Unit filename="console.cpp" />
 		<Unit filename="console.h" />
+		<Unit filename="globalvar.h" />
 		<Unit filename="graphic.cpp" />
 		<Unit filename="graphic.h" />
-		<Unit filename="headers.h" />
+		<Unit filename="header.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="notes.txt" />
 		<Unit filename="procc.cpp" />

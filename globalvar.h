@@ -24,6 +24,3 @@ gint64 tmpv_wrk;
 gint8 w3_ty=0;
 gint w3_yy=0;
 gint16 w3_armi;
-
-
-;

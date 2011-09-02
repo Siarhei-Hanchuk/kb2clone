@@ -34,6 +34,7 @@ char *strcpy_m(char *Dst,int begin,int end,const char *Src,long begdst=0)
 
 int pos(const char *substr,const char *str)
 {
+    if(str==NULL){return -1;}
     //!выдаёт номер позицию где первый раз встречается substr
 	if(strlen(substr)==1){
 		int l=strlen(str);

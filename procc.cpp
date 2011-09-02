@@ -11,6 +11,7 @@ void init_map()
     gw_c3_main(world.country[2].map);
     gw_c4_main(world.country[3].map);
     gw_c5_main(world.country[4].map);
+    gw_c0_def();
     pl.country=0;
     pl.X=5;
     pl.Y=5;
@@ -52,6 +53,11 @@ gint8 cstep(int x, int y,gint ox=0,gint oy=0)
         world.naveX=pl.X;
         world.naveY=pl.Y;
         world.naveC=pl.country;
+        return 1;
+     }
+     if((world.country[pl.country].map[x][y].land==l_plot)&&(world.country[pl.country].map[x][y].obj==0)){
+        pl.X=x;
+        pl.Y=y;
         return 1;
      }
      if(((world.country[pl.country].map[x][y].land==l_land)||(world.country[pl.country].map[x][y].land==l_sand))&&(world.country[pl.country].map[x][y].obj==0)){

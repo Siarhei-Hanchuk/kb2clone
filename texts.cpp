@@ -6,7 +6,7 @@ int LoadFile(const gchar *fn,gchar *&file)
 //!Загрука файла в оперативную память, возвращает размер или -1 если файл не удалось открыть
 {
     FILE *f=fopen(fn,"r");
-    if(f==NULL){fclose(f);return -1;}
+    if(f==NULL){return -1;}
     fseek(f,0,SEEK_END);
     int len=ftell(f);
     fseek(f,0,SEEK_SET);
@@ -26,6 +26,7 @@ void cache_langfile(gchar *&data)
         win32_slash(pt);
     #endif
     LoadFile(pt,data);
+    delete pt;
 }
 
 gchar *text_get_strid(const gchar *strid)

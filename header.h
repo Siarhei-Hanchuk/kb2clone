@@ -51,6 +51,8 @@ const id a_rknight=60;
 
 const id e_navi=301;
 const id e_workers=302;
+const id e_city_wrk=303;
+
 const int screenw=960;
 const int screenh=600;
 
