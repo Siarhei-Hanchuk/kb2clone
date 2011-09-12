@@ -21,6 +21,9 @@ gint64 tmpv_nextX;
 gint64 tmpv_nextY;
 gint64 tmpv_wrk;
 
+gint8 tmpv_cityX;
+gint8 tmpv_cityY;
+
 gint8 w3_ty=0;
 gint w3_yy=0;
 gint16 w3_armi;

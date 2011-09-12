@@ -3,7 +3,6 @@
 #include "texts.h"
 #include "graphic.h"
 
-
 void init_map()
 {
     gw_c1_main(world.country[0].map);
@@ -76,6 +75,8 @@ gint8 cstep(int x, int y,gint ox=0,gint oy=0)
         return 0;
      }
      if(world.country[pl.country].map[x][y].obj==o_city){
+         tmpv_cityX=x;
+         tmpv_cityY=y;
         Tmenu m=gui_menu_city_set(world.country[pl.country].map[x][y].addid);
         gui_keylock_event=o_city;
         tmpv_city=world.country[pl.country].map[x][y].addid;

@@ -6,7 +6,7 @@ gboolean coip(int argc, char *argv[])
     if(argc>1)
     {
         if((strcmp(argv[1],"--version")==0)||(strcmp(argv[1],"-v")==0)){
-            std::cout<<"kb2clone 0.2.1\n";
+            std::cout<<"kb2clone 0.2.2\n";
             return FALSE;
         }
         if((strcmp(argv[1],"--tool")==0)||(strcmp(argv[1],"-t")==0)){

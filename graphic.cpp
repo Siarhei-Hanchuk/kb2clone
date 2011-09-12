@@ -6,8 +6,8 @@
 
 void pl_nave_get()
 {
-    for(gint16 a=pl.X-1;a<pl.X+1;a++){
-        for(gint16 b=pl.Y-1;b<pl.Y+1;b++)
+    for(gint16 a=tmpv_cityX-1;a<tmpv_cityX+1;a++){
+        for(gint16 b=tmpv_cityY-1;b<tmpv_cityY+1;b++)
         {
             if(world.country[pl.country].map[a][b].land==l_water){
                 world.country[pl.country].map[a][b].obj=o_nave;
@@ -516,9 +516,9 @@ void gui_menu_gold_proc(gint8 key)
     gui_refresh();
 }
 
-void gui_menu_navi_proc(gint32 key)
+void gui_menu_navi_proc(gint8 key)
 {
-    pl.country=key-1;
+    pl.country=key-48-1;
     pl.X=2;
     pl.Y=2;
     gui_keylock_event=0;

@@ -200,6 +200,9 @@ extern gint64 tmpv_nextX;
 extern gint64 tmpv_nextY;
 extern gint64 tmpv_wrk;
 
+extern gint8 tmpv_cityX;
+extern gint8 tmpv_cityY;
+
 extern gint8 w3_ty;
 extern gint w3_yy;
 extern gint16 w3_armi;
