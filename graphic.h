@@ -1,9 +1,8 @@
-void gui_init(int argc, char *argv[]);
-void cache_images(cairo_surface_t **&arr);
-void gui_dialog_hideall();
-Tmenu gui_menu_city_set(id cityid);
+void gui_bkdlg_show(cairo_t *cr);
 void gui_dialog_show(const gchar *head, const gchar *msg);
-void gui_menu_show(Tmenu m);
-void gui_byarmy_show(gint8 armid);
-Tmenu gui_menu_set_gold();
-void gui_menu_free(Tmenu m);
+void gui_draw_image_cst(cairo_t *cr,cairo_surface_t *cst, int x, int y);
+void gui_draw_point(cairo_t* cr,gint16 x,gint16 y, gint16 size,double red, double green, double blue);
+void gui_draw_line(cairo_t* cr,gint16 x,gint16 y, gint16 X,gint16 Y, gint16 size,double red, double green, double blue);
+void gui_textsid_print(cairo_t *cr, const gchar *sid,gint x, gint y);
+void gui_text_print(cairo_t *cr, const gchar *s,gint x, gint y);
+

@@ -49,6 +49,8 @@
 		<Unit filename="header.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="notes.txt" />
+		<Unit filename="platforms.cpp" />
+		<Unit filename="platforms.h" />
 		<Unit filename="procc.cpp" />
 		<Unit filename="procc.h" />
 		<Unit filename="texts.cpp" />

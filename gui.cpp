@@ -1,4 +1,3 @@
-#include <gtk/gtk.h>
 #include "header.h"
 #include "graphic.h"
 #include "texts.h"

@@ -1,21 +1,23 @@
-using namespace std;
 #include "header.h"
-#include "globalvar.h"
 #include "texts.h"
 #include "procc.h"
-#include "graphic.h"
+#include "gui.h"
 #include "console.h"
 #include "cache.h"
 
+TGlobalvar GV;
+Tplayer pl;
+Tworld world;
+
 int main (int argc, char *argv[])
 {
-    datapath=coi_getdatapath(argv[0]);
+    GV.datapath=coi_getdatapath(argv[0]);
     gboolean f=coip(argc,argv); if(!f){return 0;}
 
     srand(time(NULL));
     cache_army();
-    cache_images(IMAGES);
-    cache_langfile(langfile);
+    cache_images(GV.IMAGES);
+    cache_langfile(GV.langfile);
 
     init_map();
 

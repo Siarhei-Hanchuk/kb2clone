@@ -1,7 +1,7 @@
 #include "header.h"
 #include "world.h"
 #include "texts.h"
-#include "graphic.h"
+#include "gui.h"
 
 void init_map()
 {
@@ -25,12 +25,12 @@ void init_map()
     pl.workers.woodsman=6;
     pl.workers.groundsman=0;
     pl.workers.stonesman=3;
-    tmpv_wrk=0;
+    GV.tmpv_wrk=0;
 }
 
 gint8 cstep(int x, int y,gint ox=0,gint oy=0)
 {
-    if(gui_dialog_showed){
+    if(GV.gui_dialog_showed){
         gui_dialog_hideall();
         //gui_dlg_showed=FALSE;
         return 0;
@@ -71,25 +71,25 @@ gint8 cstep(int x, int y,gint ox=0,gint oy=0)
         gui_dialog_show(s2,s1);
         delete[] s1;
         delete[] s2;
-        gui_dialog_showed=TRUE;
+       GV.gui_dialog_showed=TRUE;
         return 0;
      }
      if(world.country[pl.country].map[x][y].obj==o_city){
-         tmpv_cityX=x;
-         tmpv_cityY=y;
+        GV.tmpv_cityX=x;
+        GV.tmpv_cityY=y;
         Tmenu m=gui_menu_city_set(world.country[pl.country].map[x][y].addid);
-        gui_keylock_event=o_city;
-        tmpv_city=world.country[pl.country].map[x][y].addid;
+        GV.gui_keylock_event=o_city;
+        GV.tmpv_city=world.country[pl.country].map[x][y].addid;
         gui_menu_show(m);
         gui_menu_free(m);
      }
      if(world.country[pl.country].map[x][y].obj==o_army){
-        gui_keylock_event=o_army;
+        GV.gui_keylock_event=o_army;
         gui_byarmy_show(world.country[pl.country].map[x][y].addid);
      }
      if(world.country[pl.country].map[x][y].obj==o_goldchest){
         Tmenu m=gui_menu_set_gold();
-        gui_keylock_event=o_goldchest;
+        GV.gui_keylock_event=o_goldchest;
         gui_menu_show(m);
         gui_menu_free(m);
         world.country[pl.country].map[x][y].obj=0;
@@ -138,7 +138,7 @@ void gui_freeA(id **A)
 id** procw(id key)
 {
     gint8 r=0;
-    if(gui_dialog_showed){gui_dialog_hideall();return gui_getA();}
+    if(GV.gui_dialog_showed){gui_dialog_hideall();return gui_getA();}
     if(key==key_down){
         r=cstep(pl.X,pl.Y+1,pl.X,pl.Y);
     }

@@ -1,11 +1,4 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-
 #include "header.h"
-
-extern gchar *datapath;
 
 gchar *tools_getparm(gchar *s,gint n)
 {
@@ -30,7 +23,7 @@ void tool_armedit(gchar *s)
 {
     gint64 size=sizeof(Tarmys);
     gchar *fn=new gchar[256];
-    strcpy(fn,datapath);
+    strcpy(fn,GV.datapath);
     strcat(fn,"/armydata");
     FILE *f;
     if(s[0]=='d'){
@@ -45,7 +38,7 @@ void tool_armedit(gchar *s)
         f=fopen(fn,"w");
         fwrite(a,size,atoi(pr),f);
         fclose(f);
-        strcpy(s,datapath);
+        strcpy(s,GV.datapath);
     }
     if(s[0]=='w'){
         Tarmys *a=new Tarmys[25];

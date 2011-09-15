@@ -2,9 +2,6 @@
 #include <gtk/gtk.h>
 #include <iostream>
 #include <string.h>
-#include <stdio.h>
-#include <time.h>
-#include <fstream>
 
 using namespace std;
 
@@ -177,32 +174,32 @@ struct Tmenu{
     gchar *p[9];
 };
 
-extern gchar *datapath;
-extern gchar *langfile;
+struct TGlobalvar{
+    gchar *datapath;
+    gchar *langfile;
+    cairo_surface_t **IMAGES;
+    Tarmys armys[125];
 
-extern Tarmys armys[125];
+    GtkWidget *window;
+    GtkWidget *drawarea;
+
+    id **lastA;
+    gboolean gui_dialog_showed;
+    gint16 gui_keylock_event;
+
+    gint64 tmpv_gold;
+    gint64 tmpv_city;
+    gint64 tmpv_nextX;
+    gint64 tmpv_nextY;
+    gint64 tmpv_wrk;
+    gint16 tmpv_cityX;
+    gint16 tmpv_cityY;
+
+    gint8 w3_ty;
+    gint w3_yy;
+    gint16 w3_armi;
+};
+
+extern TGlobalvar GV;
 extern Tworld world;
 extern Tplayer pl;
-
-extern GtkWidget *window;
-extern GtkWidget *drawarea;
-
-extern cairo_surface_t **IMAGES;
-
-extern id **lastA;
-
-extern gboolean gui_dialog_showed;
-extern gint16 gui_keylock_event;
-
-extern gint64 tmpv_gold;
-extern gint64 tmpv_city;
-extern gint64 tmpv_nextX;
-extern gint64 tmpv_nextY;
-extern gint64 tmpv_wrk;
-
-extern gint8 tmpv_cityX;
-extern gint8 tmpv_cityY;
-
-extern gint8 w3_ty;
-extern gint w3_yy;
-extern gint16 w3_armi;

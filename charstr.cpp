@@ -1,4 +1,5 @@
-#include "header.h"
+#include <stdlib.h>
+#include <string.h>
 
 char *strlwr(char *s)
 {
@@ -35,7 +36,6 @@ char *strcpy_m(char *Dst,int begin,int end,const char *Src,long begdst=0)
 int pos(const char *substr,const char *str)
 {
     if(str==NULL){return -1;}
-    //!выдаёт номер позицию где первый раз встречается substr
 	if(strlen(substr)==1){
 		int l=strlen(str);
 		for(int j=0;j<l;j++){
@@ -61,10 +61,7 @@ int pos(const char *substr,const char *str)
 
 char *itoa(const long int n)
 {
-    //!Переводит число в строку
-    //!Для чисел со знаком, не блолее 64 разрядов
     long int t=n;
-    //char *buf=new char[21];memset(buf,0,21);
     char *buf=(char *)malloc(sizeof(char)*21);memset(buf,0,21);
     if(n==0){
         buf[0]='0';buf[1]=0;
