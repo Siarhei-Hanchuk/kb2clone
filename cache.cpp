@@ -1,5 +1,6 @@
 #include "header.h"
 #include "Error.h"
+#include "win32.h"
 
 void cache_army()
 {

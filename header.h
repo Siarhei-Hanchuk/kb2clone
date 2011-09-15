@@ -116,7 +116,7 @@ struct Tcountry
 struct Tarmy
 {
     id armid;
-    uint count;
+    gint64 count;
 };
 
 struct Tcastle
