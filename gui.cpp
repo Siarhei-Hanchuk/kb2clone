@@ -6,12 +6,14 @@
 
 void gui_printgame(id **A)
 {
+
     cairo_t *cr = gdk_cairo_create(GV.drawarea->window);
     if(A==NULL){return;}
     GV.lastA=A;
     for(int i=0;i<6;i++){
         for(int j=0;j<5;j++){
-            gui_draw_image_cst(cr,GV.IMAGES[A[i][j]],160*i,120*j);
+            cairo_set_source_surface(cr, GV.IMAGES[A[i][j]], i*160, j*120);
+            cairo_paint(cr);
             }
     }
     cairo_destroy(cr);
@@ -226,7 +228,7 @@ void gui_refresh()
     gui_freeA(A);
 }
 
-void gui_menu_city_wrk_show(gint8 key)
+void gui_menu_city_wrk_show()
 {
     Tmenu m;
     m.p[0]=text_get_strid("sid_city_menu_wrk_p0");
@@ -247,6 +249,11 @@ void gui_menu_city_wrk_show(gint8 key)
         cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wland));
         cairo_move_to(cr,230,470);
         cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wstone));
+    gui_textsid_print(cr,"sid_byarmy_how",900-160-150+30,20+539);
+    gchar *s;
+    local_gs(s,"sid_byarmy_money",pl.money);
+    strcat(s,"$");
+    gui_text_print(cr,s,900-160-150,20+370);
     cairo_destroy(cr);
 }
 
@@ -274,9 +281,8 @@ void gui_menu_city_proc(gint8 key)
         return;
     }
     if(key==key_6){
-        gui_menu_city_wrk_show(key);
+        gui_menu_city_wrk_show();
         GV.gui_keylock_event=e_city_wrk;
-
     }
     if(key==key_5){
         if(pl.wallkick){return;}
@@ -430,6 +436,51 @@ void gui_status_show()
     GV.gui_dialog_showed=TRUE;
 }
 
+void gui_ued_proc(gint8 key)
+{
+    cairo_t *cr = gdk_cairo_create(GV.drawarea->window);
+    if((key>=48)&&(key<=57)){
+        GV.ued=GV.ued*10+(key-48);
+        gui_text_print(cr,itoa(key-48),715+GV.w3_ty*10,558);
+        GV.w3_ty++;
+    }
+    if(key==key_backspace)
+    {
+        GV.w3_ty=0;
+        GV.ued=0;
+        gui_draw_line(cr,715,553,780,553,20,0,0,0);
+    }
+    if(key==key_esc){
+        GV.gui_keylock_event=o_city;
+        gui_menu_city_wrk_show();
+        return;
+    }
+    if(key==key_enter){
+        switch(GV.citywrkselected){
+            case 1:world.city[GV.tmpv_city].wraft-=GV.ued;
+                        pl.workers.carpenter+=GV.ued;
+                        pl.money-=GV.ued*500;
+                break;
+            case 2:world.city[GV.tmpv_city].wforest-=GV.ued;
+                        pl.workers.woodsman+=GV.ued;
+                        pl.money-=GV.ued*500;
+                break;
+            case 3:world.city[GV.tmpv_city].wland-=GV.ued;
+                        pl.workers.groundsman+=GV.ued;
+                        pl.money-=GV.ued*800;
+                break;
+            case 4:world.city[GV.tmpv_city].wstone-=GV.ued;
+                        pl.workers.stonesman+=GV.ued;
+                        pl.money-=GV.ued*800;
+                break;
+
+        }
+        GV.gui_keylock_event=o_city;
+        gui_menu_city_wrk_show();
+    }
+    cairo_destroy(cr);
+}
+
 void gui_byarmy_proc(gint8 key)
 {
     cairo_t *cr = gdk_cairo_create(GV.drawarea->window);
@@ -490,8 +541,12 @@ void gui_army_show()
     cairo_line_to(cr,screenw-160,300);
     cairo_stroke(cr);
     int i=0;
-    while(pl.army[i].armid!=0){
+    while((pl.army[i].armid!=0)&&(i<5)){
         gui_draw_image_cst(cr,GV.IMAGES[pl.army[i].armid],0,screenh/5*i);
+        gui_textsid_print(cr,text_get_strid(GV.armys[pl.army[i].armid].name),160+10,screenh/5*i+20);
+        gui_textsid_print(cr,text_get_strid("sid_showarmy_damage"),160+10,screenh/5*i+45);
+        gui_textsid_print(cr,text_get_strid("sid_showarmy_defence"),160+10,screenh/5*i+70);
+        gui_textsid_print(cr,text_get_strid("sid_showarmy_control"),160+10,screenh/5*i+95);
         i++;
     }
 }
@@ -608,8 +663,16 @@ void gui_pressing_key(GtkWidget *buuton, GdkEventKey *event, gpointer func_data)
             gui_byarmy_proc(key);
             return;
         }
+        if(GV.gui_keylock_event==e_ued){
+            gui_ued_proc(key);
+            return;
+        }
         if(GV.gui_keylock_event==e_city_wrk){
-            gui_menu_city_wrk_show(key);
+            if((GV.citywrkselected==0)&&(key>48)&&(key<53)){
+                GV.citywrkselected=key-48;
+            }
+            //gui_menu_city_wrk_proc();
+            GV.gui_keylock_event=e_ued;
             return;
         }
         if(GV.gui_keylock_event==o_city){

@@ -49,6 +49,7 @@ const id a_rknight=60;
 const id e_navi=301;
 const id e_workers=302;
 const id e_city_wrk=303;
+const id e_ued=304;
 
 const int screenw=960;
 const int screenh=600;
@@ -198,6 +199,9 @@ struct TGlobalvar{
     gint8 w3_ty;
     gint w3_yy;
     gint16 w3_armi;
+
+    gint64 ued;
+    gint8 citywrkselected;
 };
 
 extern TGlobalvar GV;
