@@ -55,7 +55,6 @@ void gw_all_cities(Tmap &map)
 void gw_all_guidepost(Tmap &map)
 {
     gint16 c=0;
-//    gint16 r=0;
     gint8 x=0;
     gint8 y=0;
     while(c<8){
@@ -92,7 +91,8 @@ void gw_all_castels(Tmap &map)
     while(c<5){
         x=rand()%MAXC;
         y=rand()%MAXC;
-        if((map[x][y].land==l_land)&&(map[x-1][y].land==l_land)&&(map[x+1][y].land==l_land)&&(map[x][y+1].land==l_land)){
+        if(((map[x][y].land==l_land)&&(map[x-1][y].land==l_land)&&(map[x+1][y].land==l_land)&&(map[x][y+1].land==l_land))&&
+                   ((map[x][y].obj==0)&&(map[x-1][y].obj==0)&&(map[x+1][y].obj==0)&&(map[x][y+1].obj==0))){
             map[x][y].obj=o_castel_c;
             map[x+1][y].obj=o_castel_r;
             map[x-1][y].obj=o_castel_l;
@@ -101,14 +101,12 @@ void gw_all_castels(Tmap &map)
             map[x][y+1].addid=world.cut_cap;
             world.cut_cap++;
             c++;
-
         }
     }
 }
 
 void gw_c1_army(Tmap &map)
-{//Заполнения равнолесья воинами
-    //gint16 r=0;
+{
     gint8 v=0+51;
     gint8 x;
     gint8 y;
@@ -181,6 +179,22 @@ void gw_all_river(Tmap &map,gint16 pl=10)
     if(r==3){ y=59; x=rand()%54+5; gws_all_river2(map,x,y,-1,pl);}
 }
 
+void gw_c2_army(Tmap &map)
+{
+    gint8 v=0+51+10;
+    gint8 x;
+    gint8 y;
+    while(v<0+51+10){
+        x=rand()%65;
+        y=rand()%65;
+            if((map[x][y].obj==0)&&(map[x][y].land==l_land)){
+                map[x][y].obj=o_army;
+                map[x][y].addid=v;
+                v++;
+            }
+    }
+}
+
 void gw_c1_main(Tmap &map)
 {//Выполнение всех функций по генерации равнолесья
     gw_all_base(map);
@@ -196,19 +210,96 @@ void gw_c1_main(Tmap &map)
 
 }
 
+void gw_c2_water(Tmap &map)
+{
+    int r=0;
+     for(gint16 i=6;i<MAXC-6; i++){
+        for(gint16 j=6;j<MAXC-6; j++){
+                r=rand()%7;
+                if(r==1){map[i][j].land=l_water;}
+        }
+     }
+}
+
+void gw_all_forest(Tmap &map, gint64 rnd)
+{
+    int r=0;
+     for(gint16 i=5;i<MAXC-5; i++){
+        for(gint16 j=5;j<MAXC-5; j++){
+                r=rand()%rnd;
+                if(r==1){
+                    if((map[i][j].land==l_land)&&(map[i][j].obj==0)){
+                        map[i][j].land=l_forest;
+                    }
+                }
+        }
+     }
+}
+
+void gw_all_stone(Tmap &map, gint64 rnd)
+{
+    int r=0;
+     for(gint16 i=5;i<MAXC-5; i++){
+        for(gint16 j=5;j<MAXC-5; j++){
+                r=rand()%rnd;
+                if(r==1){
+                    if((map[i][j].land==l_land)&&(map[i][j].obj==0)){
+                        map[i][j].land=l_stone;
+                    }
+                }
+        }
+     }
+}
+
+void gw_c2_stone(Tmap &map)
+{
+    int r=0;
+     for(gint16 i=6;i<MAXC-6; i++){
+        for(gint16 j=6;j<MAXC-6; j++){
+                r=rand()%31;
+                if(r==1){map[i][j].land=l_stone;}
+        }
+     }
+}
+
 void gw_c2_main(Tmap &map)
 {
     gw_all_base(map);
+    gw_all_river(map,40);
+    gw_all_river(map,50);
+    gw_all_river(map,30);
+    gw_c2_water(map);
+    gw_all_forest(map,12);
+    gw_c2_stone(map);
+    gw_all_cities(map);
+    gw_all_castels(map);
+    gw_all_goldchest(map);
+    gw_all_guidepost(map);
+    gw_c2_army(map);
 }
 
 void gw_c3_main(Tmap &map)
 {
     gw_all_base(map);
+    gw_all_river(map,40);
+    gw_all_river(map,30);
+    gw_all_cities(map);
+    gw_all_castels(map);
+    gw_all_forest(map,2);
+    gw_all_goldchest(map);
+    gw_all_guidepost(map);
 }
 
 void gw_c4_main(Tmap &map)
 {
     gw_all_base(map);
+    gw_all_river(map,40);
+    gw_all_river(map,30);
+    gw_all_cities(map);
+    gw_all_castels(map);
+    gw_all_stone(map,2);
+    gw_all_goldchest(map);
+    gw_all_guidepost(map);
 }
 
 void gw_c5_sand(Tmap &map)
