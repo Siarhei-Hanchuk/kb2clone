@@ -14,7 +14,7 @@ void gui_printgame(id **A)
         for(int j=0;j<5;j++){
             cairo_set_source_surface(cr, GV.IMAGES[A[i][j]], i*160, j*120);
             cairo_paint(cr);
-            }
+        }
     }
     cairo_destroy(cr);
 }
@@ -145,15 +145,15 @@ Tmenu gui_menu_city_set(id cityid)
     r.p[0]=text_get_strid("sid_city_menu_title");
     r.p[1]=text_get_strid("sid_city_menu_p1");
         if(!pl.nave)
-        r.p[2]=text_get_strid("sid_city_menu_p2");
+            r.p[2]=text_get_strid("sid_city_menu_p2");
         else
-        r.p[2]=text_get_strid("sid_city_menu_p2a");
+            r.p[2]=text_get_strid("sid_city_menu_p2a");
     r.p[3]=text_get_strid("sid_city_menu_p3");
     r.p[4]=text_get_strid("sid_city_menu_p4");
         if(!pl.wallkick)
-        r.p[5]=text_get_strid("sid_city_menu_p5");
+            r.p[5]=text_get_strid("sid_city_menu_p5");
         else
-        r.p[5]=text_get_strid("sid_city_menu_p5a");
+            r.p[5]=text_get_strid("sid_city_menu_p5a");
     r.p[6]=text_get_strid("sid_city_menu_p6");
     r.p[7]=text_get_strid("sid_city_menu_p7");
     r.p[8]=NULL;
@@ -209,7 +209,6 @@ void gui_menu_show(Tmenu m)
         cairo_show_text(cr,m.p[i]);
         cairo_move_to(cr,20,410+i*20);
         i++;
-
     }
     cairo_stroke(cr);
     cairo_destroy(cr);
@@ -241,14 +240,14 @@ void gui_menu_city_wrk_show()
     cairo_t *cr=gdk_cairo_create(GV.drawarea->window);
     cairo_set_source_rgb (cr, 255, 255, 200);
     cairo_set_font_size(cr, 19);
-        cairo_move_to(cr,230,410);
-        cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wraft));
-        cairo_move_to(cr,230,430);
-        cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wforest));
-        cairo_move_to(cr,230,450);
-        cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wland));
-        cairo_move_to(cr,230,470);
-        cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wstone));
+    cairo_move_to(cr,230,410);
+    cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wraft));
+    cairo_move_to(cr,230,430);
+    cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wforest));
+    cairo_move_to(cr,230,450);
+    cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wland));
+    cairo_move_to(cr,230,470);
+    cairo_show_text(cr,itoa(world.city[GV.tmpv_city].wstone));
     gui_textsid_print(cr,"sid_byarmy_how",900-160-150+30,20+539);
     gchar *s;
     local_gs(s,"sid_byarmy_money",pl.money);
@@ -458,20 +457,20 @@ void gui_ued_proc(gint8 key)
     if(key==key_enter){
         switch(GV.citywrkselected){
             case 1:world.city[GV.tmpv_city].wraft-=GV.ued;
-                        pl.workers.carpenter+=GV.ued;
-                        pl.money-=GV.ued*500;
+                    pl.workers.carpenter+=GV.ued;
+                    pl.money-=GV.ued*500;
                 break;
             case 2:world.city[GV.tmpv_city].wforest-=GV.ued;
-                        pl.workers.woodsman+=GV.ued;
-                        pl.money-=GV.ued*500;
+                    pl.workers.woodsman+=GV.ued;
+                    pl.money-=GV.ued*500;
                 break;
             case 3:world.city[GV.tmpv_city].wland-=GV.ued;
-                        pl.workers.groundsman+=GV.ued;
-                        pl.money-=GV.ued*800;
+                    pl.workers.groundsman+=GV.ued;
+                    pl.money-=GV.ued*800;
                 break;
             case 4:world.city[GV.tmpv_city].wstone-=GV.ued;
-                        pl.workers.stonesman+=GV.ued;
-                        pl.money-=GV.ued*800;
+                    pl.workers.stonesman+=GV.ued;
+                    pl.money-=GV.ued*800;
                 break;
 
         }
@@ -508,13 +507,9 @@ void gui_byarmy_proc(gint8 key)
             }
             pl.army[i].armid=GV.w3_armi;
             pl.army[i].count=GV.w3_yy;
-
             GV.gui_keylock_event=0;
-
-
             GV.w3_ty=0;
             GV.w3_yy=0;
-
             gui_printgame(GV.lastA);
             return;
         }
@@ -526,9 +521,9 @@ void gui_byarmy_proc(gint8 key)
         gui_draw_line(cr,715,553,780,553,20,0,0,0);
     }
     if(key==key_esc){
-            GV.gui_keylock_event=0;
-            gui_printgame(GV.lastA);
-            return;
+        GV.gui_keylock_event=0;
+        gui_printgame(GV.lastA);
+        return;
     }
 }
 
@@ -645,53 +640,51 @@ void gui_workers_show()
     cairo_t *cr=gdk_cairo_create(GV.drawarea->window);
     cairo_set_source_rgb (cr, 255, 255, 200);
     cairo_set_font_size(cr, 19);
-        cairo_move_to(cr,160,410);
-        cairo_show_text(cr,itoa(pl.workers.carpenter));
-        cairo_move_to(cr,160,430);
-        cairo_show_text(cr,itoa(pl.workers.woodsman));
-        cairo_move_to(cr,160,450);
-        cairo_show_text(cr,itoa(pl.workers.groundsman));
-        cairo_move_to(cr,160,470);
-        cairo_show_text(cr,itoa(pl.workers.stonesman));
+    cairo_move_to(cr,160,410);
+    cairo_show_text(cr,itoa(pl.workers.carpenter));
+    cairo_move_to(cr,160,430);
+    cairo_show_text(cr,itoa(pl.workers.woodsman));
+    cairo_move_to(cr,160,450);
+    cairo_show_text(cr,itoa(pl.workers.groundsman));
+    cairo_move_to(cr,160,470);
+    cairo_show_text(cr,itoa(pl.workers.stonesman));
     cairo_destroy(cr);
 }
 
-void gui_pressing_key(GtkWidget *buuton, GdkEventKey *event, gpointer func_data)
+void gui_pressing_key(gint8 key)
 {
-    gint8 key=event->keyval;
-        if(GV.gui_keylock_event==o_army){
-            gui_byarmy_proc(key);
-            return;
+    if(GV.gui_keylock_event==o_army){
+        gui_byarmy_proc(key);
+        return;
+    }
+    if(GV.gui_keylock_event==e_ued){
+        gui_ued_proc(key);
+        return;
+    }
+    if(GV.gui_keylock_event==e_city_wrk){
+        if((GV.citywrkselected==0)&&(key>48)&&(key<53)){
+            GV.citywrkselected=key-48;
         }
-        if(GV.gui_keylock_event==e_ued){
-            gui_ued_proc(key);
-            return;
-        }
-        if(GV.gui_keylock_event==e_city_wrk){
-            if((GV.citywrkselected==0)&&(key>48)&&(key<53)){
-                GV.citywrkselected=key-48;
-            }
-            //gui_menu_city_wrk_proc();
-            GV.gui_keylock_event=e_ued;
-            return;
-        }
-        if(GV.gui_keylock_event==o_city){
-            gui_menu_city_proc(key);
-            return;
-        }
-        if(GV.gui_keylock_event==o_goldchest){
-            gui_menu_gold_proc(key);
-            return;
-        }
-        if(GV.gui_keylock_event==e_navi){
-            gui_menu_navi_proc(key);
-            return;
-        }
-        if(GV.gui_keylock_event==e_workers){
-            gui_workers_proc(key);
-            return;
-        }
-
+        //gui_menu_city_wrk_proc();
+        GV.gui_keylock_event=e_ued;
+        return;
+    }
+    if(GV.gui_keylock_event==o_city){
+        gui_menu_city_proc(key);
+        return;
+    }
+    if(GV.gui_keylock_event==o_goldchest){
+        gui_menu_gold_proc(key);
+        return;
+    }
+    if(GV.gui_keylock_event==e_navi){
+        gui_menu_navi_proc(key);
+        return;
+    }
+    if(GV.gui_keylock_event==e_workers){
+        gui_workers_proc(key);
+        return;
+    }
     if(GV.gui_dialog_showed==TRUE){
         gui_dialog_hideall();
         return;
@@ -731,9 +724,19 @@ void gui_pressing_key(GtkWidget *buuton, GdkEventKey *event, gpointer func_data)
     //delete a;&!!
 }
 
-static void gui_destroy(GtkWidget* window, gpointer data)
+void guis_pressing_key(GtkWidget *buuton, GdkEventKey *event, gpointer func_data)
+{
+    gui_pressing_key(event->keyval);
+}
+
+static void guis_destroy(GtkWidget* window, gpointer data)
 {
 	gtk_main_quit();
+}
+
+static void guis_show(GtkWidget* window, GdkEvent *ev, gpointer data)
+{
+    gui_refresh();
 }
 
 void gui_init(int argc, char *argv[])
@@ -749,8 +752,9 @@ void gui_init(int argc, char *argv[])
     GV.drawarea=gtk_drawing_area_new();
     gtk_container_add(GTK_CONTAINER(GV.window), GV.drawarea);
 
-    g_signal_connect(GV.window, "key_press_event", G_CALLBACK(gui_pressing_key), NULL);
-    g_signal_connect(GTK_OBJECT(GV.window), "destroy", G_CALLBACK(gui_destroy), NULL);
+    g_signal_connect(GV.window, "focus-in-event", G_CALLBACK(guis_show), NULL);
+    g_signal_connect(GV.window, "key_press_event", G_CALLBACK(guis_pressing_key), NULL);
+    g_signal_connect(GTK_OBJECT(GV.window), "destroy", G_CALLBACK(guis_destroy), NULL);
     gtk_widget_show_all(GV.window);
     gtk_main();
 }
