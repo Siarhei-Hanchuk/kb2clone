@@ -734,7 +734,7 @@ static void guis_destroy(GtkWidget* window, gpointer data)
 	gtk_main_quit();
 }
 
-static void guis_show(GtkWidget* window, GdkEvent *ev, gpointer data)
+static void guis_show(GtkWidget* window, GdkEventExpose* event, gpointer data)
 {
     gui_refresh();
 }
@@ -751,10 +751,10 @@ void gui_init(int argc, char *argv[])
 
     GV.drawarea=gtk_drawing_area_new();
     gtk_container_add(GTK_CONTAINER(GV.window), GV.drawarea);
-
-    g_signal_connect(GV.window, "focus-in-event", G_CALLBACK(guis_show), NULL);
-    g_signal_connect(GV.window, "key_press_event", G_CALLBACK(guis_pressing_key), NULL);
+    g_signal_connect(G_OBJECT(GV.drawarea), "expose_event", G_CALLBACK(guis_show), NULL);
+    g_signal_connect(GTK_OBJECT(GV.window), "key_press_event", G_CALLBACK(guis_pressing_key), NULL);
     g_signal_connect(GTK_OBJECT(GV.window), "destroy", G_CALLBACK(guis_destroy), NULL);
+
     gtk_widget_show_all(GV.window);
     gtk_main();
 }
